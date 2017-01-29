@@ -7,8 +7,8 @@ var gulp = require('gulp'),
 		sourceMaps = require('gulp-sourcemaps'),
 		concat = require('gulp-concat'),
 		plumber = require('gulp-plumber'),
-		cache = require('gulp-cache'),
 		notify = require('gulp-notify'),
+		util = require('gulp-util'),
 		uglify = require('gulp-uglify'),
 		postCss = require('gulp-postcss'),
 		imageMin = require('imagemin'),
@@ -19,6 +19,10 @@ var gulp = require('gulp'),
 		runSequence = require('run-sequence'),
 		webpack = require('webpack-stream'),
 		del = require('del'),
+		argv   = require('minimist')(process.argv);
+		gulpif = require('gulp-if');
+		prompt = require('gulp-prompt');
+		rsync  = require('gulp-rsync');
 		join = path.join;
 
 
@@ -27,6 +31,7 @@ var DEST = 'out',
 		TEMPLATES = join(SRC, 'templates'),
 		STYLES = join(SRC, 'styles'),
 		SCRIPTS = join(SRC, 'scripts');
+		IMAGES = join(SRC, 'images');
 
 
 gulp.task('less', function() {
@@ -55,11 +60,11 @@ gulp.task('less', function() {
 
 
 gulp.task('images', function(){
-	return gulp.src(join(SRC, 'images/**/*.+(png|jpg|jpeg|gif|svg)')
-	.pipe(cache(imagemin({
+	return gulp.src(join(IMAGES, '**/*.+(png|jpg|jpeg|gif|svg)'))
+	.pipe(cache(imageMin({
 			interlaced: true
 		})))
-	.pipe(gulp.dest(join(DEST, 'images'))
+	.pipe(gulp.dest(join(DEST, 'images')));
 });
 
 
@@ -104,7 +109,7 @@ gulp.task('js', function() {
 
 gulp.task('clean:dist', function() {
 	return del.sync(DEST);
-})
+});
 
 
 gulp.task('pug-index:sync', ['pug-index'], function(done) {
@@ -152,3 +157,19 @@ gulp.task('build', function (callback) {
 		callback
 	)
 })
+
+gulp.task('deploy', function() {
+	gulp.src(DEST)
+		.pipe(rsync({
+			hostname: '77.222.40.32',
+			username: 'nordwestru',
+			destination: 'test/public_html/',
+			progress: true,
+			incremental: true,
+			relative: true,
+			emptyDirectories: true,
+			recursive: true,
+			clean: true,
+			exclude: [],
+		}));
+});
