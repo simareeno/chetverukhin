@@ -69,7 +69,7 @@ gulp.task('images', function(){
 
 
 gulp.task('pug-index', function() {
-	return gulp.src([join(TEMPLATES, 'index.pug')])
+	return gulp.src([join(TEMPLATES, '*.pug')])
 		.pipe(plumber({
 			errorHandler: notify.onError(function(err) {
 				return {
@@ -88,7 +88,7 @@ gulp.task('pug-index', function() {
 
 gulp.task('js', function() {
 
-	return gulp.src(join(SCRIPTS, 'app.js'))
+	return gulp.src(join(SCRIPTS, '*.js'))
 		.pipe(plumber({
 			errorHandler: notify.onError(function(err) {
 				return {
@@ -97,12 +97,14 @@ gulp.task('js', function() {
 				}
 			})
 		}))
+		.pipe(sourceMaps.init())
 		.pipe(webpack({
 			output: {
 				filename: 'bundle.js',
 			},
 		}))
-		.pipe(uglify())
+		// .pipe(uglify())
+		.pipe(sourceMaps.write())
 		.pipe(gulp.dest(join(DEST, 'scripts')));
 });
 
