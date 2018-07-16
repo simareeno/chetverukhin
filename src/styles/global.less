@@ -1,4 +1,43 @@
+@import "reset";
+@import "header";
+
+@font-face {
+	font-family: 'Proxima Nova';
+	src: url('../fonts/proximanova-regular-webfont.eot');
+	src: url('../fonts/proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/proximanova-regular-webfont.woff2') format('woff2'),
+		url('../fonts/proximanova-regular-webfont.woff') format('woff'),
+		url('../fonts/proximanova-regular-webfont.ttf') format('truetype'),
+		url('../fonts/proximanova-regular-webfont.svg#proxima_novabold') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Proxima Nova';
+	src: url('../fonts/proximanova-bold-webfont.eot');
+	src: url('../fonts/proximanova-bold-webfont.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/proximanova-bold-webfont.woff2') format('woff2'),
+		url('../fonts/proximanova-bold-webfont.woff') format('woff'),
+		url('../fonts/proximanova-bold-webfont.ttf') format('truetype'),
+		url('../fonts/proximanova-bold-webfont.svg#proxima_novabold') format('svg');
+	font-weight: bold;
+	font-style: bold;
+}
+
 body {
-	margin: 10px;
-	background: #000;
+	background: #fffbee;
+	font-family: 'Proxima Nova', sans-serif;
+	image-rendering: optimizeQuality;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+}
+
+.wrapper {
+	position: relative;
+	max-width: 1800px;
+	margin: 0 auto;
+	padding: 0 64px;
+	background: white;
 }

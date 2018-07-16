@@ -1,8 +1,8 @@
 doctype html
-body
-	head
-		meta(charset="utf-8")
-		title Chetverukhin.ru
-		link(href="styles/styles.css" rel="stylesheet" type="text/css")
-		script(src="scripts/bundle.js")
-		//- base(href="/basic/")
+html
+	include blocks/head
+	body
+		- var work = true
+		- var about = false
+		include blocks/header
+	include blocks/footer
